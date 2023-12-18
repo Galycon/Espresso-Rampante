@@ -44,4 +44,6 @@ public:
 
 
 	PhysBody3D* sensor_cube;
+	PhysBody3D* pb_rampaInicial;
+	Cube* p_rampaInicial;
 };

@@ -25,6 +25,16 @@ bool ModuleSceneIntro::Start()
 	sensor_cube->SetAsSensor(true);
 	sensor_cube->SetPos(0, 3, 0);
 
+
+	p_rampaInicial = new Cube(5, 2, 15);
+	p_rampaInicial->SetPos(0,0,5);
+	pb_rampaInicial = App->physics->AddBody(*p_rampaInicial, 0.0);
+	
+	
+	
+	p_rampaInicial->SetRotation(25, vec3(1, 0, 0));
+	pb_rampaInicial->SetTransform(p_rampaInicial->transform.M);
+
 	return ret;
 }
 
@@ -41,7 +51,10 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	Plane p(0, 1, 0, 0);
 	p.axis = true;
-	p.Render();
+
+	
+	p_rampaInicial->Render();
+	
 
 	return UPDATE_CONTINUE;
 }
