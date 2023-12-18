@@ -99,7 +99,7 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 	vehicle->SetPos(0, 12, 10);
-
+	
 	return true;
 }
 
@@ -143,6 +143,10 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Brake(brake);
 
 	vehicle->Render();
+
+	App->camera->Position = vec3(vehicle->body->getCenterOfMassTransform().getOrigin().x(), vehicle->body->getCenterOfMassTransform().getOrigin().y() + 4, vehicle->body->getCenterOfMassTransform().getOrigin().z());
+	//App->camera->LookAt(vec3(vehicle->body->getCenterOfMassTransform().getOrigin().x(), vehicle->body->getCenterOfMassTransform().getOrigin().y() + 4, vehicle->body->getCenterOfMassTransform().getOrigin().z()));
+
 
 	char title[80];
 	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
