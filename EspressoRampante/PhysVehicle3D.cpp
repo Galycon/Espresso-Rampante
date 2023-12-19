@@ -2,6 +2,11 @@
 #include "Primitive.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
+#include "Globals.h"
+#include "Application.h"
+#include "ModulePlayer.h"
+#include "PhysBody3D.h"
+
 // ----------------------------------------------------------------------------
 VehicleInfo::~VehicleInfo()
 {
@@ -48,6 +53,37 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[13] += offset.getY();
 	chassis.transform.M[14] += offset.getZ();
 
+	cameraReference = Cube(1.1f, 1.1f, 1.1f);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&cameraReference.transform);
+	cameraReference.color = Blue;
+	btVector3 offset2(0, 2, 3);
+	offset2 = offset2.rotate(q.getAxis(), q.getAngle());
+
+	cameraReference.transform.M[12] += offset2.getX();
+	cameraReference.transform.M[13] += offset2.getY();
+	cameraReference.transform.M[14] += offset2.getZ();
+
+	cameraReference.Render();
+
+
+
+	
+
+	
+
+
+
+	/*Cube nose2(3, 0.2f, 0.6);
+	vehicle->getChassisWorldTransform().getOpenGLMatrix(&nose2.transform);
+	nose2.color = Blue;
+	btQuaternion q_n2 = vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset_n2(0, 0.5f, -2);
+	offset_n2 = offset_n2.rotate(q_n2.getAxis(), q_n2.getAngle());
+
+	nose2.transform.M[12] += offset_n2.getX();
+	nose2.transform.M[13] += offset_n2.getY();
+	nose2.transform.M[14] += offset_n2.getZ();
+	nose2.Render();*/
 
 	chassis.Render();
 }

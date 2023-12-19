@@ -23,6 +23,7 @@ public:
 public:
 
 	PhysVehicle3D* vehicle;
+	Cube lookForCamera;
 	float turn;
 	float acceleration;
 	float brake;

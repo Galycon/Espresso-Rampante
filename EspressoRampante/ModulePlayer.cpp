@@ -99,6 +99,9 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->collision_listeners.add(this); // Add this module as listener to callbacks from vehicle
 	vehicle->SetPos(0, 12, 10);
+
+
+	lookForCamera = Cube(0.5, 0.5, 0.5);
 	
 	return true;
 }
@@ -144,8 +147,20 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 
-	App->camera->Position = vec3(vehicle->body->getCenterOfMassTransform().getOrigin().x(), vehicle->body->getCenterOfMassTransform().getOrigin().y() + 4, vehicle->body->getCenterOfMassTransform().getOrigin().z());
-	//App->camera->LookAt(vec3(vehicle->body->getCenterOfMassTransform().getOrigin().x(), vehicle->body->getCenterOfMassTransform().getOrigin().y() + 4, vehicle->body->getCenterOfMassTransform().getOrigin().z()));
+
+	vehicle->vehicle->getChassisWorldTransform().getOpenGLMatrix(&lookForCamera.transform);
+	btQuaternion q = vehicle->vehicle->getChassisWorldTransform().getRotation();
+	btVector3 offset(0,7,-15);
+	offset = offset.rotate(q.getAxis(), q.getAngle());
+
+	lookForCamera.transform.M[12] += offset.getX();
+	lookForCamera.transform.M[13] += offset.getY();
+	lookForCamera.transform.M[14] += offset.getZ();
+	
+	
+	App->camera->Position = vec3(lookForCamera.transform[12], lookForCamera.transform[13], lookForCamera.transform[14]);
+	App->camera->LookAt(vec3(vehicle->cameraReference.transform[12], vehicle->cameraReference.transform[13], vehicle->cameraReference.transform[14]));
+	
 
 
 	char title[80];
