@@ -26,14 +26,8 @@ bool ModuleSceneIntro::Start()
 	sensor_cube->SetPos(0, 3, 0);
 
 
-	p_rampaInicial = new Cube(5, 2, 15);
-	p_rampaInicial->SetPos(0,0,5);
-	pb_rampaInicial = App->physics->AddBody(*p_rampaInicial, 0.0);
 	
-	
-	
-	p_rampaInicial->SetRotation(25, vec3(1, 0, 0));
-	pb_rampaInicial->SetTransform(p_rampaInicial->transform.M);
+	this->CreateElements();
 
 	return ret;
 }
@@ -53,7 +47,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	p.axis = true;
 
 	
-	p_rampaInicial->Render();
+	this->RenderElements();
+
+	
 	
 
 	return UPDATE_CONTINUE;
@@ -61,5 +57,30 @@ update_status ModuleSceneIntro::Update(float dt)
 
 void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
+}
+
+void ModuleSceneIntro::CreateElements()
+{
+
+	PhysBody3D* pb_rampaInicial;
+	Cube* p_rampaInicial;
+	p_rampaInicial = new Cube(5, 2, 15);
+	p_rampaInicial->SetPos(0, 0, 5);
+	pb_rampaInicial = App->physics->AddBody(*p_rampaInicial, 0.0);
+	p_rampaInicial->SetRotation(25, vec3(1, 0, 0));
+	pb_rampaInicial->SetTransform(p_rampaInicial->transform.M);
+	primitives.PushBack(p_rampaInicial);
+	physBodies.PushBack(pb_rampaInicial);
+
+
+}
+
+void ModuleSceneIntro::RenderElements()
+{
+
+	for (int i = 0; i < primitives.Count(); i++) {
+		(**primitives.At(i)).Render();
+	}
+
 }
 

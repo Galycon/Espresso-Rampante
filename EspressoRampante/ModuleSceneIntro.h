@@ -21,6 +21,9 @@ public:
 
 	void OnCollision(PhysBody3D* body1, PhysBody3D* body2);
 
+	void CreateElements();
+	void RenderElements();
+
 public:
 	/*
 	PhysBody3D* pb_snake[MAX_SNAKE];
@@ -44,6 +47,10 @@ public:
 
 
 	PhysBody3D* sensor_cube;
-	PhysBody3D* pb_rampaInicial;
-	Cube* p_rampaInicial;
+	
+
+	p2DynArray<Primitive*> primitives;
+	p2DynArray<PhysBody3D*> physBodies;
+	
+	
 };
