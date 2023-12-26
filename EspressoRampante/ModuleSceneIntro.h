@@ -25,7 +25,7 @@ public:
 	void RenderElements();
 
 
-	void CreateElement(Cube* forma, vec3 position, float angle, vec3 axis);
+	Cube* CreateElement(Cube* forma, vec3 position, float angle, vec3 axis);
 	void CreateElement(Cylinder* forma, vec3 position, float angle, vec3 axis);
 
 public:

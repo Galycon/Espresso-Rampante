@@ -62,18 +62,20 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 void ModuleSceneIntro::CreateElements()
 {
 
-	/*PhysBody3D* pb_rampaInicial;
+	PhysBody3D* pb_rampaInicial;
 	Cube* p_rampaInicial;
-	p_rampaInicial = new Cube(5, 2, 15);
-	p_rampaInicial->SetPos(0, 0, 5);
-	pb_rampaInicial = App->physics->AddBody(*p_rampaInicial, 0.0);
-	p_rampaInicial->SetRotation(25, vec3(1, 0, 0));
+	p_rampaInicial = new Cube(50, 2, 50);
+	p_rampaInicial->SetPos(0, 0, 0);
+	p_rampaInicial->color = Red;
+	pb_rampaInicial = App->physics->AddBody(*p_rampaInicial, 0.0, true);
 	pb_rampaInicial->SetTransform(p_rampaInicial->transform.M);
 	primitives.PushBack(p_rampaInicial);
-	physBodies.PushBack(pb_rampaInicial);*/
+	physBodies.PushBack(pb_rampaInicial);
 
-	CreateElement(new Cube(5,2,15), vec3(0,0,5), 25, vec3(1,0,0));
-	CreateElement(new Cylinder(2,3), vec3(0, 0, 35), 25, vec3(0, 1, 0));
+	
+	CreateElement(new Cube(15, 2, 20), vec3(0, 1, 7), 0, vec3(1, 0, 0));
+	CreateElement(new Cube(15,2,15), vec3(0,2,5), 25, vec3(1,0,0));
+	CreateElement(new Cylinder(2,3), vec3(0, 3, 35), 25, vec3(0, 1, 0));
 
 
 }
@@ -87,7 +89,7 @@ void ModuleSceneIntro::RenderElements()
 
 }
 
-void ModuleSceneIntro::CreateElement(Cube* forma, vec3 position, float angle, vec3 axis)
+Cube* ModuleSceneIntro::CreateElement(Cube* forma, vec3 position, float angle, vec3 axis)
 {
 	PhysBody3D* pb_rampaInicial;
 	
@@ -97,6 +99,9 @@ void ModuleSceneIntro::CreateElement(Cube* forma, vec3 position, float angle, ve
 	pb_rampaInicial->SetTransform(forma->transform.M);
 	primitives.PushBack(forma);
 	physBodies.PushBack(pb_rampaInicial);
+
+
+	return forma;
 }
 
 void ModuleSceneIntro::CreateElement(Cylinder* forma, vec3 position, float angle, vec3 axis)
