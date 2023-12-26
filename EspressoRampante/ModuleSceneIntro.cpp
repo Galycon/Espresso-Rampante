@@ -62,7 +62,7 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 void ModuleSceneIntro::CreateElements()
 {
 
-	PhysBody3D* pb_rampaInicial;
+	/*PhysBody3D* pb_rampaInicial;
 	Cube* p_rampaInicial;
 	p_rampaInicial = new Cube(5, 2, 15);
 	p_rampaInicial->SetPos(0, 0, 5);
@@ -70,7 +70,10 @@ void ModuleSceneIntro::CreateElements()
 	p_rampaInicial->SetRotation(25, vec3(1, 0, 0));
 	pb_rampaInicial->SetTransform(p_rampaInicial->transform.M);
 	primitives.PushBack(p_rampaInicial);
-	physBodies.PushBack(pb_rampaInicial);
+	physBodies.PushBack(pb_rampaInicial);*/
+
+	CreateElement(new Cube(5,2,15), vec3(0,0,5), 25, vec3(1,0,0));
+	CreateElement(new Cylinder(2,3), vec3(0, 0, 35), 25, vec3(0, 1, 0));
 
 
 }
@@ -82,5 +85,30 @@ void ModuleSceneIntro::RenderElements()
 		(**primitives.At(i)).Render();
 	}
 
+}
+
+void ModuleSceneIntro::CreateElement(Cube* forma, vec3 position, float angle, vec3 axis)
+{
+	PhysBody3D* pb_rampaInicial;
+	
+	forma->SetPos(position.x, position.y, position.z);
+	pb_rampaInicial = App->physics->AddBody(*forma, 0.0);
+	forma->SetRotation(angle, axis);
+	pb_rampaInicial->SetTransform(forma->transform.M);
+	primitives.PushBack(forma);
+	physBodies.PushBack(pb_rampaInicial);
+}
+
+void ModuleSceneIntro::CreateElement(Cylinder* forma, vec3 position, float angle, vec3 axis)
+{
+	PhysBody3D* pb_rampaInicial;
+
+	
+	forma->SetPos(position.x, position.y, position.z);
+	pb_rampaInicial = App->physics->AddBody(*forma, 0.0);
+	forma->SetRotation(angle, axis);
+	pb_rampaInicial->SetTransform(forma->transform.M);
+	primitives.PushBack(forma);
+	physBodies.PushBack(pb_rampaInicial);
 }
 
