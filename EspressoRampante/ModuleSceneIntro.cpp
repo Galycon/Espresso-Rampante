@@ -73,7 +73,7 @@ void ModuleSceneIntro::CreateElements()
 	physBodies.PushBack(pb_rampaInicial);
 
 	
-	CreateElement(new Cube(15, 2, 20), vec3(0, 1, 7), 0, vec3(1, 0, 0));
+	CreateElement(new Cube(15, 2, 1000), vec3(0, 1, 50), 0, vec3(1, 0, 0));
 	CreateElement(new Cube(15,2,15), vec3(0,2,5), 25, vec3(1,0,0));
 	CreateElement(new Cylinder(2,3), vec3(0, 3, 35), 25, vec3(0, 1, 0));
 
